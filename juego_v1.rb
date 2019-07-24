@@ -42,7 +42,7 @@ class Tablero
 		#puts "Posiciones libres: #{@posiciones_disponibles}"
 		@tablero[fila - 1][columna - 1] = marca
 		if @posiciones_disponibles.zero?
-			puts ' ===== EMPATE ===== '
+			puts " \n ***===== EMPATE =====*** "
 			false
 		else
 			#puts "Posiciones libres: #{@posiciones_disponibles}"
@@ -81,10 +81,10 @@ class Tablero
 		#puts "Marcas en columna: #{marcas_en_columna}"
 
 		if marcas_en_columna == @marca_x_ganadora
-			puts " ***** GANO EL JUGADOR 1 ***** "
+			puts ' ***** GANO EL JUGADOR 1 ***** '
 			true
 		elsif marcas_en_columna == @marca_o_ganadora
-			puts " ***** GANO EL JUGADOR 2 ***** "
+			puts ' ***** GANO EL JUGADOR 2 ***** '
 			true
 		end
 	end
@@ -140,11 +140,45 @@ case opcion
 						puts ' *** LA CASILLA YA ESTA MARCADA *** '
 					else
 						marca = jugador_1 ? 'X' : 'O'
-						tablero.agregar_marca(marca, numero_de_fila, numero_de_columna)
-						tablero.dibujar
+						if tablero.agregar_marca(marca, numero_de_fila, numero_de_columna)
+							tablero.dibujar
 
-						if tablero.marcas_iguales_en_fila(numero_de_fila)
-							print '¿Volver a jugar? s/n: '
+							if tablero.marcas_iguales_en_fila(numero_de_fila)
+								print " \n ¿Volver a jugar? s/n: "
+								respuesta = gets.chomp.downcase
+								if volver_a_jugar(respuesta)
+									system('clear')
+									puts " *** Inicia el #{!jugador_1 ? "JUGADOR 1" : "JUGADOR 2"} *** "
+									tablero = Tablero.new(3)
+									tablero.dibujar
+								else
+									break
+								end
+							end
+
+
+							if tablero.marcas_iguales_en_columna(numero_de_columna)
+								print " \n ¿Volver a jugar? s/n: "
+								respuesta = gets.chomp.downcase
+								if volver_a_jugar(respuesta)
+									system('clear')
+									puts " *** Inicia el #{!jugador_1 ? "JUGADOR 1" : "JUGADOR 2"} *** "
+									tablero = Tablero.new(3)
+									tablero.dibujar
+								else
+									break
+								end
+							end
+
+
+							#jugador_1 = !jugador_1
+							#jugardor_2 = !jugardor_2
+							#tablero.dibujar
+						else
+
+							# ===== EMPATE ======
+							tablero.dibujar
+							print " \n ¿Volver a jugar? s/n: "
 							respuesta = gets.chomp.downcase
 							if volver_a_jugar(respuesta)
 								system('clear')
@@ -154,26 +188,11 @@ case opcion
 							else
 								break
 							end
+
 						end
-
-
-						if tablero.marcas_iguales_en_columna(numero_de_columna)
-							print '¿Volver a jugar? s/n: '
-							respuesta = gets.chomp.downcase
-							if volver_a_jugar(respuesta)
-								system('clear')
-								puts " *** Inicia el #{!jugador_1 ? "JUGADOR 1" : "JUGADOR 2"} *** "
-								tablero = Tablero.new(3)
-								tablero.dibujar
-							else
-								break
-							end
-						end
-
 
 						jugador_1 = !jugador_1
 						jugardor_2 = !jugardor_2
-						#tablero.dibujar
 					end
 				else
 					puts '¡ERROR numero de COLUMNA No valido!'
