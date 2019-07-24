@@ -39,13 +39,12 @@ class Tablero
 
 	def agregar_marca(marca, fila, columna)
 		@posiciones_disponibles -= 1
-		#puts "Posiciones libres: #{@posiciones_disponibles}"
+
 		@tablero[fila - 1][columna - 1] = marca
 		if @posiciones_disponibles.zero?
 			puts " \n ***===== EMPATE =====*** "
 			false
 		else
-			#puts "Posiciones libres: #{@posiciones_disponibles}"
 			true
 		end
 	end
@@ -61,7 +60,7 @@ class Tablero
 		@tablero[fila - 1].each do |columna|
 			marcas_en_fila << columna
 		end
-		#puts marcas_en_fila
+		
 		if marcas_en_fila == @marca_x_ganadora
 			puts ' ***** GANO EL JUGADOR 1 ***** '
 			true
@@ -77,8 +76,6 @@ class Tablero
 		@tablero.each do |fila|
 			marcas_en_columna << fila[columna - 1]
 		end
-
-		#puts "Marcas en columna: #{marcas_en_columna}"
 
 		if marcas_en_columna == @marca_x_ganadora
 			puts ' ***** GANO EL JUGADOR 1 ***** '
@@ -104,11 +101,7 @@ jugador_1 = true
 jugardor_2 = false
 
 def volver_a_jugar(respuesta)
-	if respuesta == 's'
-		true
-	else
-		false
-	end
+	respuesta == 's' ? true : false
 end
 
 
@@ -170,10 +163,6 @@ case opcion
 								end
 							end
 
-
-							#jugador_1 = !jugador_1
-							#jugardor_2 = !jugardor_2
-							#tablero.dibujar
 						else
 
 							# ===== EMPATE ======
