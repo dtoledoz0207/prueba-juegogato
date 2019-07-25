@@ -90,13 +90,17 @@ puts " "
 
 # Para saber los carateres en diagonal
 frace3 = ''
-arreglo3 = [["H", "o", "l", "a"], ["h", "o", "l", "a"], ["h", "o", "l", "a"], ["h", "o", "l", "O"]]
+frase4 = ''
+arreglo3 = [["H", "o", "l", "a1"], ["h", "o", "l2", "a"], ["h", "o3", "l", "a"], ["h4", "o", "l", "O"]]
 arreglo3.each_with_index do |fila, index|
-  num_columna = index
-  puts num_columna
-  frace3 << fila[num_columna]
+  num_columna_derecha = index
+  num_columna_izquierda = -(index + 1)
+  puts num_columna_izquierda
+  #frace3 << fila[num_columna_derecha]
+  frase4 << fila[num_columna_izquierda]
 end
 puts frace3
+puts frase4
 
 
 30.times{print '-'}
